@@ -395,7 +395,7 @@
             "post": {
                 "tags": ["Insights"],
                 "summary": "Create Insights",
-                "description": "Call this API with the template-id received from Setu along with a pdf, to trigger an Report generation job. The created Report will be shared via a notification to the endpoint configured by the FIU. This API will respond with a report-id, which can also be used to fetch the generated Report.",
+                "description": "Call this API with the template-id received from Setu along with a PDF file, to trigger an Report generation job. The created Report will be shared via a notification to the endpoint configured by the FIU. This API will respond with a report-id, which can also be used to fetch the generated Report.",
                 "operationId": "process_pdf_insights_v1_insight_post",
                 "parameters": [
                     {
@@ -475,6 +475,65 @@
                     }
                 }
             }
+        },
+        "/v1/pdf/supported_banks": {
+            "get": {
+                "tags": ["PDF Support"],
+                "summary": "Get Supported Banks for PDF Parsing",
+                "description": "Call this API to get a list of Supported Banks for PDF Parsing.",
+                "operationId": "get_pdf_supported_banks_v1_pdf_supported_banks_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": { "title": "x-client-id", "type": "string" },
+                        "name": "x-client-id",
+                        "in": "header"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "x-client-secret",
+                            "type": "string"
+                        },
+                        "name": "x-client-secret",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get PDF Parsing Supported Banks",
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/SupportedBanksGetResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/GenericResponse"
+                                        }
+                                    ]
+                                },
+                                "examples": {
+                                    "SupportedBanksGetResponse": {
+                                        "summary": "SupportedBanksGetResponse",
+                                        "value": {
+                                            "status": "Success",
+                                            "body": [
+                                                "HDFC Bank Ltd",
+                                                "HSBC Ltd",
+                                                "ICICI Bank Ltd."
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     },
     "components": {
